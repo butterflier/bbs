@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face{font-family:'NKR';src:url('file:///tmp/fonts/NotoSansKR-regular.ttf');font-weight:400;}
+  @font-face{font-family:'NKR';src:url('file:///tmp/fonts/NotoSansKR-medium.ttf');font-weight:500;}
+  @font-face{font-family:'NKR';src:url('file:///tmp/fonts/NotoSansKR-bold.ttf');font-weight:700;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1240px;height:1754px;}
+  body{
+    font-family:'NKR',sans-serif; color:#1a1d24; background:#fff;
+    padding:52px 58px 44px; font-size:14.5px; line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+  }
+  .navy{color:#123a63;}
+  header{border-bottom:3px solid #123a63;padding-bottom:14px;display:flex;align-items:flex-end;justify-content:space-between;}
+  header h1{font-size:31px;font-weight:700;letter-spacing:-0.5px;color:#123a63;}
+  header .sub{font-size:15px;color:#5a6474;margin-top:6px;font-weight:500;}
+  header .meta{text-align:right;font-size:12.5px;color:#77808f;line-height:1.6;}
+  header .meta b{color:#123a63;font-size:14px;}
+
+  h2{font-size:17px;font-weight:700;color:#fff;background:#123a63;padding:7px 14px;border-radius:3px;
+     margin:17px 0 10px;letter-spacing:-0.3px;display:flex;align-items:center;justify-content:space-between;}
+  h2 span.note{font-size:12px;font-weight:400;color:#c8d8ea;}
+  h3{font-size:14px;font-weight:700;color:#123a63;margin:14px 0 7px;padding-left:9px;border-left:4px solid #d3a12a;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th,td{border:1px solid #ccd3dc;padding:6px 8px;text-align:center;vertical-align:middle;}
+  th{background:#eef2f7;font-weight:700;color:#2b3a4d;font-size:12.5px;}
+  td.l{text-align:left;}
+
+  /* 학생정보 */
+  table.info td{padding:7px 10px;}
+  table.info th{width:118px;background:#f5f7fa;text-align:left;font-weight:500;color:#48566a;}
+  table.info td{text-align:left;font-weight:500;}
+  .muted{color:#9aa3b0;font-weight:400;}
+
+  .hl td{background:#fdf6e3;font-weight:700;color:#7a5600;}
+
+  ul{list-style:none;}
+  ul li{position:relative;padding-left:15px;margin-bottom:4.5px;font-size:13.5px;}
+  ul li:before{content:'';position:absolute;left:2px;top:8px;width:5px;height:5px;background:#123a63;border-radius:50%;}
+  ul li .tag{display:inline-block;background:#123a63;color:#fff;font-size:11px;font-weight:700;
+             border-radius:3px;padding:1px 6px;margin-right:6px;vertical-align:1px;}
+  ul li .code{font-weight:700;color:#a8203c;}
+  ul li ul li:before{background:#98a2b0;width:4px;height:4px;top:8px;}
+  ul li ul{margin-top:4px;}
+
+  .box{border:1px solid #e2c98a;background:#fdf8ec;border-radius:4px;padding:10px 13px;font-size:13px;line-height:1.5;}
+  .box .t{font-weight:700;color:#8a6206;margin-bottom:4px;font-size:13.5px;}
+  .box b{color:#a8203c;}
+
+  .two{display:flex;gap:16px;}
+  .two > div{flex:1;}
+
+  .timeline{display:flex;gap:0;margin-top:4px;}
+  .tl{flex:1;text-align:center;position:relative;padding-top:20px;}
+  .tl:before{content:'';position:absolute;top:7px;left:0;right:0;height:2px;background:#d5dce4;}
+  .tl:first-child:before{left:50%;}
+  .tl:last-child:before{right:50%;}
+  .tl .dot{position:absolute;top:2px;left:50%;margin-left:-6px;width:12px;height:12px;border-radius:50%;
+           background:#fff;border:3px solid #123a63;}
+  .tl.done .dot{background:#123a63;}
+  .tl .d{font-size:12.5px;font-weight:700;color:#123a63;}
+  .tl .n{font-size:11.5px;color:#68737f;margin-top:1px;}
+
+  .quote{border-left:4px solid #b9c6d6;background:#f6f8fb;padding:9px 13px;font-size:12.5px;
+          line-height:1.55;color:#394452;font-style:italic;border-radius:0 4px 4px 0;}
+  .quote b{font-style:normal;color:#a8203c;}
+  .memo{border:1px solid #d5dce4;border-radius:4px;height:48px;
+        background:repeating-linear-gradient(to bottom,transparent,transparent 27px,#e8edf3 27px,#e8edf3 28px);}
+  footer{margin-top:14px;border-top:1px solid #dde3ea;padding-top:8px;
+         display:flex;justify-content:space-between;font-size:11px;color:#98a1ad;}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>소피아(조치)대학 지원 정리</h1>
+    <div class="sub">Sophia University · Faculty of Liberal Arts (FLA) 4월 입학 2차 &nbsp;|&nbsp; G30 학생 관리 카드</div>
+  </div>
+  <div class="meta">
+    <b>이승훈 학생</b><br>
+    출처 : Notion &gt; G30 &gt; 이승훈 학생<br>
+    작성 기준일 : 2026. 09. 08.
+  </div>
+</header>
+
+<h2>1. 학생 정보</h2>
+<div class="two">
+  <div>
+    <table class="info">
+      <tr><th>이 름</th><td>이승훈</td></tr>
+      <tr><th>생년월일</th><td class="muted">미기재</td></tr>
+      <tr><th>연락처</th><td>010 - <span class="muted">(미기재)</span></td></tr>
+    </table>
+  </div>
+  <div>
+    <table class="info">
+      <tr><th>토플 최고점</th><td>4.5 <span class="muted">(원문 기재값)</span></td></tr>
+      <tr><th>SAT 최고점</th><td class="muted">미기재</td></tr>
+      <tr><th>리포팅 대학</th><td class="muted">미기재</td></tr>
+    </table>
+  </div>
+</div>
+<table class="info" style="margin-top:7px;">
+  <tr><th style="width:118px;">지망 학부</th><td>소피아대학 국제교양학부 (Faculty of Liberal Arts) — 4월 입학 2차 전형</td></tr>
+</table>
+
+<h2>2. 소피아 대학 스케쥴 <span class="note">전형 일정 / 에세이 수업 계획</span></h2>
+
+<h3>전형 일정</h3>
+<table>
+  <tr>
+    <th style="width:19%">지망대학 / 프로그램</th><th>학부</th><th>접수 시작</th><th>접수 마감</th>
+    <th>1차 합발</th><th>2차 시험</th><th>최종 합발</th>
+  </tr>
+  <tr class="hl">
+    <td>소피아 FLA 04 2차</td><td>국제교양</td><td>26 / 11 / 11</td><td>26 / 12 / 04</td>
+    <td>-</td><td>-</td><td>27 / 01 / 29</td>
+  </tr>
+</table>
+
+<div class="timeline" style="margin:14px 0 4px;">
+  <div class="tl done"><div class="dot"></div><div class="d">09 / 14 · 09 / 16</div><div class="n">에세이 수업 (2회)</div></div>
+  <div class="tl"><div class="dot"></div><div class="d">09 / 18</div><div class="n">에세이 완성</div></div>
+  <div class="tl"><div class="dot"></div><div class="d">11 / 11</div><div class="n">접수 시작</div></div>
+  <div class="tl"><div class="dot"></div><div class="d">12 / 04</div><div class="n">접수 마감</div></div>
+  <div class="tl"><div class="dot"></div><div class="d">27 / 01 / 29</div><div class="n">최종 합격 발표</div></div>
+</div>
+
+<h3>에세이 수업 계획</h3>
+<table>
+  <tr>
+    <th style="width:19%">지망대학 / 프로그램</th><th>학부</th><th>에세이 완성</th><th>수업일 (각 2회)</th><th>워드수</th>
+  </tr>
+  <tr class="hl">
+    <td>소피아 FLA 04 2차</td><td>국제교양</td><td>26 / 09 / 18</td><td>09 / 14, &nbsp;09 / 16</td><td>500 words</td>
+  </tr>
+</table>
+
+<h2>3. 상세 정보 <span class="note">소피아 FLA 필요서류 &amp; 주의사항</span></h2>
+
+<div class="two">
+  <div>
+    <h3>필요 서류</h3>
+    <ul>
+      <li>출신 고등학교 <b>졸업증명서</b>, <b>성적증명서</b></li>
+      <li>여권 사본, 증명사진 파일</li>
+      <li>토플 리포팅 <span class="code">0819</span></li>
+      <li>아이엘츠 — 제출처 <b>Sophia University</b></li>
+      <li>SAT <span class="code">0819</span> / ACT <span class="code">5575</span> / IB <b>원본 디플로마</b></li>
+      <li><b>에세이 (최대 500단어)</b> — 지정 양식(sophia_essay.docx)에 영문 타이핑<br>
+        <span style="color:#5a6474;font-size:12.5px;">지원 이유(Reasons for wishing to study at the FLA)를 약 500단어로 작성</span></li>
+      <li><b>추천서 2부</b> — FLA Recommendation Form</li>
+    </ul>
+    <h3 style="margin-top:14px;">에세이 문항 (원문)</h3>
+    <div class="quote">
+      “The applicant must give the reasons for wishing to study at the Faculty of
+      Liberal Arts of Sophia University. It should be approximately <b>500 words</b>
+      in length and typed in English in the provided form.”
+    </div>
+    <h3 style="margin-top:14px;">첨부 양식</h3>
+    <ul style="font-size:13px;">
+      <li>sophia_essay.docx <span class="muted">— 에세이 제출 양식</span></li>
+      <li>FLA-Recommendation-Form_new.docx <span class="muted">— 추천서 양식</span></li>
+      <li>sophia_추천서.pdf <span class="muted">— 추천서 안내</span></li>
+    </ul>
+  </div>
+  <div>
+    <h3>주의 사항</h3>
+    <div class="box">
+      <div class="t">📌 소피아(조치)대학 제출 방식</div>
+      추천서 <b>2부</b> / 졸업증명서 및 성적증명서는 <b>담당 교원 혹은 직원이 메일로 직접 제출</b><br>
+      <span style="color:#5a6474;">(학생이 리퀘스트 메일 발신 → 해당 메일의 링크에 제출)</span>
+    </div>
+    <div class="box" style="margin-top:9px;">
+      <div class="t">✉️ 추천서 준비</div>
+      소피아는 <b>교원 이메일 추천서 2부</b> → <b>선생님 2분의 이메일 주소</b>가 필요합니다.<br>
+      <span style="color:#5a6474;">※ 타 대학 : 도시샤 1부 · 칸세이가쿠인 1부 · 리츠메이칸 1부(이메일), 메이지가쿠인 1부(수기·엄봉)</span>
+    </div>
+    <h3 style="margin-top:14px;">체크리스트</h3>
+    <table style="font-size:12.5px;">
+      <tr><th class="l" style="width:auto;text-align:left;">항목</th><th style="width:80px;">상태</th></tr>
+      <tr><td class="l">졸업 / 성적증명서 (교원 메일 제출)</td><td>☐</td></tr>
+      <tr><td class="l">추천서 2부 (교원 2분 이메일 확보)</td><td>☐</td></tr>
+      <tr><td class="l">토플 리포팅 0819 신청</td><td>☐</td></tr>
+      <tr><td class="l">여권 사본 · 증명사진</td><td>☐</td></tr>
+      <tr><td class="l">에세이 500단어 (09/18 완성)</td><td>☐</td></tr>
+      <tr><td class="l">온라인 원서 접수 (11/11 ~ 12/04)</td><td>☐</td></tr>
+    </table>
+  </div>
+</div>
+
+<h2>4. 참고 &middot; 전체 지원 일정 <span class="note">소피아 외 병행 지원 대학</span></h2>
+<table>
+  <tr>
+    <th style="width:19%">지망대학 / 프로그램</th><th>학부</th><th>접수 시작</th><th>접수 마감</th>
+    <th>1차 합발</th><th>2차 시험</th><th>최종 합발</th><th>에세이 완성</th>
+  </tr>
+  <tr><td>도시샤 ILA 04</td><td>교양</td><td>26 / 08 / 03</td><td>26 / 09 / 01</td><td>-</td><td>-</td><td>26 / 11 / 04</td><td>26 / 08 / 14</td></tr>
+  <tr><td>칸세이가쿠인 04 1차</td><td>국제관계</td><td>26 / 08 / 25</td><td>26 / 09 / 01</td><td>-</td><td>-</td><td>26 / 10 / 02</td><td>26 / 08 / 21</td></tr>
+  <tr><td>리츠메이칸 GLA 04</td><td>교양</td><td>26 / 08 / 19</td><td>26 / 09 / 08</td><td>-</td><td>-</td><td>26 / 10 / 29</td><td>26 / 08 / 28</td></tr>
+  <tr><td>메이지가쿠인 GTS</td><td>국제커리어</td><td>26 / 09 / 08</td><td>26 / 09 / 14</td><td>26 / 10 / 13</td><td>26 / 10 / 17 온라인</td><td>26 / 12 / 04</td><td>26 / 09 / 04</td></tr>
+  <tr><td>칸세이가쿠인 04 2차</td><td>국제관계</td><td>26 / 11 / 05</td><td>26 / 11 / 12</td><td>-</td><td>-</td><td>26 / 12 / 11</td><td>26 / 09 / 11</td></tr>
+  <tr class="hl"><td>소피아 FLA 04 2차</td><td>국제교양</td><td>26 / 11 / 11</td><td>26 / 12 / 04</td><td>-</td><td>-</td><td>27 / 01 / 29</td><td>26 / 09 / 18</td></tr>
+</table>
+
+<h3 style="margin-top:12px;">메모</h3>
+<div class="memo"></div>
+
+<footer>
+  <span>G30 · 이승훈 학생 · 소피아(조치)대학 국제교양학부 지원 정리</span>
+  <span>A4 (210 × 297 mm) · 2026.09.08 기준</span>
+</footer>
+
+</body>
+</html>
