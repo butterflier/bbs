@@ -7,82 +7,87 @@
   @font-face{font-family:'NKR';src:url('file:///tmp/fonts/NotoSansKR-medium.ttf');font-weight:500;}
   @font-face{font-family:'NKR';src:url('file:///tmp/fonts/NotoSansKR-bold.ttf');font-weight:700;}
   *{margin:0;padding:0;box-sizing:border-box;}
-  html,body{width:1240px;height:1754px;}
-  body{
-    font-family:'NKR',sans-serif; color:#1a1d24; background:#fff;
-    padding:52px 58px 44px; font-size:14.5px; line-height:1.45;
-    -webkit-font-smoothing:antialiased;
-  }
-  .navy{color:#123a63;}
-  header{border-bottom:3px solid #123a63;padding-bottom:14px;display:flex;align-items:flex-end;justify-content:space-between;}
-  header h1{font-size:31px;font-weight:700;letter-spacing:-0.5px;color:#123a63;}
-  header .sub{font-size:15px;color:#5a6474;margin-top:6px;font-weight:500;}
+  html{width:1240px;}
+  body{font-family:'NKR',sans-serif;color:#1a1d24;background:#fff;font-size:14.5px;line-height:1.45;
+       -webkit-font-smoothing:antialiased;width:1240px;}
+  .page{width:1240px;height:1754px;padding:48px 58px 34px;position:relative;overflow:hidden;background:#fff;}
+
+  header{border-bottom:3px solid #123a63;padding-bottom:13px;display:flex;align-items:flex-end;justify-content:space-between;}
+  header h1{font-size:30px;font-weight:700;letter-spacing:-0.5px;color:#123a63;}
+  header .sub{font-size:14.5px;color:#5a6474;margin-top:5px;font-weight:500;}
   header .meta{text-align:right;font-size:12.5px;color:#77808f;line-height:1.6;}
   header .meta b{color:#123a63;font-size:14px;}
 
-  h2{font-size:17px;font-weight:700;color:#fff;background:#123a63;padding:7px 14px;border-radius:3px;
-     margin:17px 0 10px;letter-spacing:-0.3px;display:flex;align-items:center;justify-content:space-between;}
+  h2{font-size:16.5px;font-weight:700;color:#fff;background:#123a63;padding:7px 14px;border-radius:3px;
+     margin:16px 0 10px;letter-spacing:-0.3px;display:flex;align-items:center;justify-content:space-between;}
   h2 span.note{font-size:12px;font-weight:400;color:#c8d8ea;}
-  h3{font-size:14px;font-weight:700;color:#123a63;margin:14px 0 7px;padding-left:9px;border-left:4px solid #d3a12a;}
+  h3{font-size:13.5px;font-weight:700;color:#123a63;margin:12px 0 6px;padding-left:9px;border-left:4px solid #d3a12a;}
+  h4{font-size:12px;font-weight:700;color:#6d7885;letter-spacing:0.6px;margin-bottom:5px;text-transform:uppercase;}
 
-  table{width:100%;border-collapse:collapse;font-size:13px;}
-  th,td{border:1px solid #ccd3dc;padding:6px 8px;text-align:center;vertical-align:middle;}
-  th{background:#eef2f7;font-weight:700;color:#2b3a4d;font-size:12.5px;}
+  table{width:100%;border-collapse:collapse;font-size:12.8px;}
+  th,td{border:1px solid #ccd3dc;padding:5.5px 8px;text-align:center;vertical-align:middle;}
+  th{background:#eef2f7;font-weight:700;color:#2b3a4d;font-size:12.3px;}
   td.l{text-align:left;}
-
-  /* 학생정보 */
-  table.info td{padding:7px 10px;}
-  table.info th{width:118px;background:#f5f7fa;text-align:left;font-weight:500;color:#48566a;}
-  table.info td{text-align:left;font-weight:500;}
+  table.info th{width:104px;background:#f5f7fa;text-align:left;font-weight:500;color:#48566a;font-size:12.5px;}
+  table.info td{text-align:left;font-weight:500;padding:6px 10px;}
   .muted{color:#9aa3b0;font-weight:400;}
-
   .hl td{background:#fdf6e3;font-weight:700;color:#7a5600;}
+  .date{color:#8a93a0;font-weight:400;font-size:11.5px;}
 
   ul{list-style:none;}
-  ul li{position:relative;padding-left:15px;margin-bottom:4.5px;font-size:13.5px;}
-  ul li:before{content:'';position:absolute;left:2px;top:8px;width:5px;height:5px;background:#123a63;border-radius:50%;}
-  ul li .tag{display:inline-block;background:#123a63;color:#fff;font-size:11px;font-weight:700;
-             border-radius:3px;padding:1px 6px;margin-right:6px;vertical-align:1px;}
-  ul li .code{font-weight:700;color:#a8203c;}
-  ul li ul li:before{background:#98a2b0;width:4px;height:4px;top:8px;}
-  ul li ul{margin-top:4px;}
+  ul li{position:relative;padding-left:14px;margin-bottom:4px;font-size:13px;}
+  ul li:before{content:'';position:absolute;left:2px;top:7.5px;width:5px;height:5px;background:#123a63;border-radius:50%;}
+  .chip{display:inline-block;background:#eef2f8;border:1px solid #cfdae7;color:#20365a;font-size:12px;
+        font-weight:700;border-radius:4px;padding:1.5px 8px;}
+  .code{font-weight:700;color:#a8203c;}
 
-  .box{border:1px solid #e2c98a;background:#fdf8ec;border-radius:4px;padding:10px 13px;font-size:13px;line-height:1.5;}
-  .box .t{font-weight:700;color:#8a6206;margin-bottom:4px;font-size:13.5px;}
+  .box{border:1px solid #e2c98a;background:#fdf8ec;border-radius:4px;padding:9px 12px;font-size:12.8px;line-height:1.5;}
+  .box .t{font-weight:700;color:#8a6206;margin-bottom:3px;font-size:13px;}
   .box b{color:#a8203c;}
 
+  .cols3{display:flex;gap:14px;}
+  .cols3 > div{flex:1;}
   .two{display:flex;gap:16px;}
   .two > div{flex:1;}
 
-  .timeline{display:flex;gap:0;margin-top:4px;}
+  .timeline{display:flex;margin:12px 0 4px;}
   .tl{flex:1;text-align:center;position:relative;padding-top:20px;}
   .tl:before{content:'';position:absolute;top:7px;left:0;right:0;height:2px;background:#d5dce4;}
-  .tl:first-child:before{left:50%;}
-  .tl:last-child:before{right:50%;}
+  .tl:first-child:before{left:50%;} .tl:last-child:before{right:50%;}
   .tl .dot{position:absolute;top:2px;left:50%;margin-left:-6px;width:12px;height:12px;border-radius:50%;
            background:#fff;border:3px solid #123a63;}
   .tl.done .dot{background:#123a63;}
-  .tl .d{font-size:12.5px;font-weight:700;color:#123a63;}
-  .tl .n{font-size:11.5px;color:#68737f;margin-top:1px;}
+  .tl .d{font-size:12.3px;font-weight:700;color:#123a63;}
+  .tl .n{font-size:11.3px;color:#68737f;margin-top:1px;}
 
-  .quote{border-left:4px solid #b9c6d6;background:#f6f8fb;padding:9px 13px;font-size:12.5px;
-          line-height:1.55;color:#394452;font-style:italic;border-radius:0 4px 4px 0;}
-  .quote b{font-style:normal;color:#a8203c;}
-  .memo{border:1px solid #d5dce4;border-radius:4px;height:48px;
+  .prompt{border-left:4px solid #b9c6d6;background:#f6f8fb;padding:11px 15px;font-size:13.2px;line-height:1.6;
+          color:#394452;border-radius:0 4px 4px 0;}
+  .prompt i{font-style:italic;color:#39454f;}
+  .prompt b{color:#a8203c;}
+
+  .topic{border:1px solid #dfe5ec;border-radius:5px;padding:11px 14px;margin-bottom:10px;background:#fbfcfd;}
+  .topic .th{font-size:13.4px;font-weight:700;color:#123a63;margin-bottom:3px;}
+  .topic .tb{font-size:12.4px;line-height:1.55;color:#3c4653;text-align:justify;}
+  .topic .src{font-size:10.8px;color:#8a93a0;margin-top:3px;}
+
+  .memo{border:1px solid #d5dce4;border-radius:4px;height:520px;
         background:repeating-linear-gradient(to bottom,transparent,transparent 27px,#e8edf3 27px,#e8edf3 28px);}
-  footer{margin-top:14px;border-top:1px solid #dde3ea;padding-top:8px;
-         display:flex;justify-content:space-between;font-size:11px;color:#98a1ad;}
+
+  footer{position:absolute;left:58px;right:58px;bottom:26px;border-top:1px solid #dde3ea;padding-top:7px;
+         display:flex;justify-content:space-between;font-size:10.8px;color:#98a1ad;}
 </style>
 </head>
 <body>
 
+<!-- ============================ PAGE 1 ============================ -->
+<div class="page">
 <header>
   <div>
     <h1>소피아(조치)대학 지원 정리</h1>
-    <div class="sub">Sophia University · Faculty of Liberal Arts (FLA) 4월 입학 2차 &nbsp;|&nbsp; G30 학생 관리 카드</div>
+    <div class="sub">Sophia University · Faculty of Liberal Arts (FLA) &nbsp;|&nbsp; 2027년 4월 입학 · 2차 전형</div>
   </div>
   <div class="meta">
-    <b>이승훈 학생</b><br>
+    <b>G30 · 이승훈 학생</b><br>
     출처 : Notion &gt; G30 &gt; 이승훈 학생<br>
     작성 기준일 : 2026. 09. 08.
   </div>
@@ -93,102 +98,106 @@
   <div>
     <table class="info">
       <tr><th>이 름</th><td>이승훈</td></tr>
-      <tr><th>생년월일</th><td class="muted">미기재</td></tr>
-      <tr><th>연락처</th><td>010 - <span class="muted">(미기재)</span></td></tr>
+      <tr><th>생년월일</th><td>2008. 10. 09.</td></tr>
+      <tr><th>연락처</th><td>010-5539-6823</td></tr>
+      <tr><th>카카오톡</th><td>hoonylee8</td></tr>
+      <tr><th>이메일</th><td>hoonylsh@gmail.com</td></tr>
     </table>
   </div>
   <div>
     <table class="info">
-      <tr><th>토플 최고점</th><td>4.5 <span class="muted">(원문 기재값)</span></td></tr>
-      <tr><th>SAT 최고점</th><td class="muted">미기재</td></tr>
-      <tr><th>리포팅 대학</th><td class="muted">미기재</td></tr>
+      <tr><th>입학 시기</th><td>2027년 4월 입학</td></tr>
+      <tr><th>지망 학부</th><td>소피아대학 국제교양학부 (FLA) — 4월 2차</td></tr>
+      <tr><th>TOEFL·IELTS</th><td><b style="color:#123a63;">5.0</b> <span class="date">/ 2026. 08. 29. 취득</span></td></tr>
+      <tr><th>SAT 최고점</th><td><b style="color:#123a63;">1330</b> <span class="date">/ 2026. 08. 22. 취득</span></td></tr>
+      <tr><th>리포팅</th><td>지원 대학 및 호세이 · 게이오 · 와세다 <b style="color:#1c7a4a;">완료</b></td></tr>
     </table>
   </div>
 </div>
-<table class="info" style="margin-top:7px;">
-  <tr><th style="width:118px;">지망 학부</th><td>소피아대학 국제교양학부 (Faculty of Liberal Arts) — 4월 입학 2차 전형</td></tr>
+<table class="info" style="margin-top:6px;">
+  <tr><th style="width:104px;">지원 대학</th>
+      <td>칸세이가쿠인 1차 · 2차 &nbsp;·&nbsp; 리츠메이칸 GLA &nbsp;·&nbsp; 메이지가쿠인 GTS &nbsp;·&nbsp;
+          <b style="color:#7a5600;">소피아 FLA 2차</b> &nbsp;·&nbsp; 도시샤 ILA <span class="muted">(지원완료)</span></td></tr>
 </table>
 
 <h2>2. 소피아 대학 스케쥴 <span class="note">전형 일정 / 에세이 수업 계획</span></h2>
-
 <h3>전형 일정</h3>
 <table>
-  <tr>
-    <th style="width:19%">지망대학 / 프로그램</th><th>학부</th><th>접수 시작</th><th>접수 마감</th>
-    <th>1차 합발</th><th>2차 시험</th><th>최종 합발</th>
-  </tr>
-  <tr class="hl">
-    <td>소피아 FLA 04 2차</td><td>국제교양</td><td>26 / 11 / 11</td><td>26 / 12 / 04</td>
-    <td>-</td><td>-</td><td>27 / 01 / 29</td>
-  </tr>
+  <tr><th style="width:19%">지망대학 / 프로그램</th><th>학부</th><th>접수 시작</th><th>접수 마감</th>
+      <th>1차 합발</th><th>2차 시험</th><th>최종 합발</th></tr>
+  <tr class="hl"><td>소피아 FLA 04 2차</td><td>국제교양</td><td>26 / 11 / 11</td><td>26 / 12 / 04</td>
+      <td>-</td><td>-</td><td>27 / 01 / 29</td></tr>
 </table>
-
-<div class="timeline" style="margin:14px 0 4px;">
+<div class="timeline">
   <div class="tl done"><div class="dot"></div><div class="d">09 / 14 · 09 / 16</div><div class="n">에세이 수업 (2회)</div></div>
   <div class="tl"><div class="dot"></div><div class="d">09 / 18</div><div class="n">에세이 완성</div></div>
   <div class="tl"><div class="dot"></div><div class="d">11 / 11</div><div class="n">접수 시작</div></div>
   <div class="tl"><div class="dot"></div><div class="d">12 / 04</div><div class="n">접수 마감</div></div>
   <div class="tl"><div class="dot"></div><div class="d">27 / 01 / 29</div><div class="n">최종 합격 발표</div></div>
 </div>
-
 <h3>에세이 수업 계획</h3>
 <table>
-  <tr>
-    <th style="width:19%">지망대학 / 프로그램</th><th>학부</th><th>에세이 완성</th><th>수업일 (각 2회)</th><th>워드수</th>
-  </tr>
-  <tr class="hl">
-    <td>소피아 FLA 04 2차</td><td>국제교양</td><td>26 / 09 / 18</td><td>09 / 14, &nbsp;09 / 16</td><td>500 words</td>
-  </tr>
+  <tr><th style="width:19%">지망대학 / 프로그램</th><th>학부</th><th>에세이 완성</th><th>수업일 (각 2회)</th><th>워드수</th></tr>
+  <tr class="hl"><td>소피아 FLA 04 2차</td><td>국제교양</td><td>26 / 09 / 18</td><td>09 / 14, &nbsp;09 / 16</td><td>500 words *</td></tr>
 </table>
+<div style="font-size:11.8px;color:#8a6206;margin-top:4px;">
+  * Notion 수업계획 기재값. <b>실제 요강 기준 제출 분량은 Personal Statement 300단어 + Self-Reflective Essay 400단어 (총 2편)</b> 이므로 확인이 필요합니다. → 2페이지 5 · 6 항목 참조
+</div>
 
-<h2>3. 상세 정보 <span class="note">소피아 FLA 필요서류 &amp; 주의사항</span></h2>
-
-<div class="two">
+<h2>3. 소피아 FLA 필요서류 <span class="note">04 2차</span></h2>
+<div class="cols3">
   <div>
-    <h3>필요 서류</h3>
+    <h4>공통 서류</h4>
     <ul>
       <li>출신 고등학교 <b>졸업증명서</b>, <b>성적증명서</b></li>
       <li>여권 사본, 증명사진 파일</li>
-      <li>토플 리포팅 <span class="code">0819</span></li>
-      <li>아이엘츠 — 제출처 <b>Sophia University</b></li>
-      <li>SAT <span class="code">0819</span> / ACT <span class="code">5575</span> / IB <b>원본 디플로마</b></li>
-      <li><b>에세이 (최대 500단어)</b> — 지정 양식(sophia_essay.docx)에 영문 타이핑<br>
-        <span style="color:#5a6474;font-size:12.5px;">지원 이유(Reasons for wishing to study at the FLA)를 약 500단어로 작성</span></li>
-      <li><b>추천서 2부</b> — FLA Recommendation Form</li>
-    </ul>
-    <h3 style="margin-top:14px;">에세이 문항 (원문)</h3>
-    <div class="quote">
-      “The applicant must give the reasons for wishing to study at the Faculty of
-      Liberal Arts of Sophia University. It should be approximately <b>500 words</b>
-      in length and typed in English in the provided form.”
-    </div>
-    <h3 style="margin-top:14px;">첨부 양식</h3>
-    <ul style="font-size:13px;">
-      <li>sophia_essay.docx <span class="muted">— 에세이 제출 양식</span></li>
-      <li>FLA-Recommendation-Form_new.docx <span class="muted">— 추천서 양식</span></li>
-      <li>sophia_추천서.pdf <span class="muted">— 추천서 안내</span></li>
     </ul>
   </div>
   <div>
-    <h3>주의 사항</h3>
+    <h4>공인 시험 점수 (택1)</h4>
+    <ul>
+      <li><span class="chip">SAT : 0819</span></li>
+      <li><span class="chip">ACT code : 5575</span></li>
+      <li><span class="chip">IB code : 원본 디플로마</span></li>
+    </ul>
+  </div>
+  <div>
+    <h4>공인 영어 시험 점수 (택1)</h4>
+    <ul>
+      <li>토플 리포팅 <span class="chip">0819</span></li>
+      <li>아이엘츠 — <b>Sophia University</b></li>
+    </ul>
+  </div>
+</div>
+<div style="margin-top:10px;">
+  <h4>추천서 2부</h4>
+  <ul><li>졸증 · 성증 담당 <b>교원 혹은 직원이 메일로 제출</b>
+      <span class="muted">(학생이 리퀘스트 메일 발신 → 링크에서 제출)</span></li></ul>
+</div>
+
+<div class="two" style="margin-top:12px;">
+  <div>
     <div class="box">
-      <div class="t">📌 소피아(조치)대학 제출 방식</div>
-      추천서 <b>2부</b> / 졸업증명서 및 성적증명서는 <b>담당 교원 혹은 직원이 메일로 직접 제출</b><br>
-      <span style="color:#5a6474;">(학생이 리퀘스트 메일 발신 → 해당 메일의 링크에 제출)</span>
+      <div class="t">📌 소피아(조치)대학 주의사항</div>
+      추천서 <b>2부</b> → <b>선생님 2분의 이메일 주소</b>가 필요합니다.<br>
+      졸업증명서 · 성적증명서도 담당 교원/직원이 <b>직접 메일 제출</b>.
     </div>
-    <div class="box" style="margin-top:9px;">
-      <div class="t">✉️ 추천서 준비</div>
-      소피아는 <b>교원 이메일 추천서 2부</b> → <b>선생님 2분의 이메일 주소</b>가 필요합니다.<br>
-      <span style="color:#5a6474;">※ 타 대학 : 도시샤 1부 · 칸세이가쿠인 1부 · 리츠메이칸 1부(이메일), 메이지가쿠인 1부(수기·엄봉)</span>
+    <div class="box" style="margin-top:8px;">
+      <div class="t">✉️ 타 대학 추천서 현황</div>
+      도시샤 1부 · 칸세이가쿠인 1부 · 리츠메이칸 1부 (이메일) / 메이지가쿠인 1부 (수기 · 엄봉)
     </div>
-    <h3 style="margin-top:14px;">체크리스트</h3>
-    <table style="font-size:12.5px;">
-      <tr><th class="l" style="width:auto;text-align:left;">항목</th><th style="width:80px;">상태</th></tr>
+  </div>
+  <div>
+    <h3 style="margin-top:0;">준비 체크리스트</h3>
+    <table style="font-size:12.3px;">
+      <tr><th class="l" style="text-align:left;">항목</th><th style="width:70px;">상태</th></tr>
       <tr><td class="l">졸업 / 성적증명서 (교원 메일 제출)</td><td>☐</td></tr>
       <tr><td class="l">추천서 2부 (교원 2분 이메일 확보)</td><td>☐</td></tr>
       <tr><td class="l">토플 리포팅 0819 신청</td><td>☐</td></tr>
+      <tr><td class="l">SAT 0819 리포팅</td><td>☐</td></tr>
       <tr><td class="l">여권 사본 · 증명사진</td><td>☐</td></tr>
-      <tr><td class="l">에세이 500단어 (09/18 완성)</td><td>☐</td></tr>
+      <tr><td class="l">Personal Statement 300단어</td><td>☐</td></tr>
+      <tr><td class="l">Self-Reflective Essay 400단어</td><td>☐</td></tr>
       <tr><td class="l">온라인 원서 접수 (11/11 ~ 12/04)</td><td>☐</td></tr>
     </table>
   </div>
@@ -196,11 +205,9 @@
 
 <h2>4. 참고 &middot; 전체 지원 일정 <span class="note">소피아 외 병행 지원 대학</span></h2>
 <table>
-  <tr>
-    <th style="width:19%">지망대학 / 프로그램</th><th>학부</th><th>접수 시작</th><th>접수 마감</th>
-    <th>1차 합발</th><th>2차 시험</th><th>최종 합발</th><th>에세이 완성</th>
-  </tr>
-  <tr><td>도시샤 ILA 04</td><td>교양</td><td>26 / 08 / 03</td><td>26 / 09 / 01</td><td>-</td><td>-</td><td>26 / 11 / 04</td><td>26 / 08 / 14</td></tr>
+  <tr><th style="width:19%">지망대학 / 프로그램</th><th>학부</th><th>접수 시작</th><th>접수 마감</th>
+      <th>1차 합발</th><th>2차 시험</th><th>최종 합발</th><th>에세이 완성</th></tr>
+  <tr><td>도시샤 ILA 04 <span class="muted">(지원완료)</span></td><td>교양</td><td>26 / 08 / 03</td><td>26 / 09 / 01</td><td>-</td><td>-</td><td>26 / 11 / 04</td><td>26 / 08 / 14</td></tr>
   <tr><td>칸세이가쿠인 04 1차</td><td>국제관계</td><td>26 / 08 / 25</td><td>26 / 09 / 01</td><td>-</td><td>-</td><td>26 / 10 / 02</td><td>26 / 08 / 21</td></tr>
   <tr><td>리츠메이칸 GLA 04</td><td>교양</td><td>26 / 08 / 19</td><td>26 / 09 / 08</td><td>-</td><td>-</td><td>26 / 10 / 29</td><td>26 / 08 / 28</td></tr>
   <tr><td>메이지가쿠인 GTS</td><td>국제커리어</td><td>26 / 09 / 08</td><td>26 / 09 / 14</td><td>26 / 10 / 13</td><td>26 / 10 / 17 온라인</td><td>26 / 12 / 04</td><td>26 / 09 / 04</td></tr>
@@ -208,13 +215,121 @@
   <tr class="hl"><td>소피아 FLA 04 2차</td><td>국제교양</td><td>26 / 11 / 11</td><td>26 / 12 / 04</td><td>-</td><td>-</td><td>27 / 01 / 29</td><td>26 / 09 / 18</td></tr>
 </table>
 
-<h3 style="margin-top:12px;">메모</h3>
-<div class="memo"></div>
+<footer>
+  <span>G30 · 이승훈 학생 · 소피아(조치)대학 국제교양학부 지원 정리</span>
+  <span>1 / 2 &nbsp;·&nbsp; A4 (210 × 297 mm) · 2026.09.08 기준</span>
+</footer>
+</div>
+
+<!-- ============================ PAGE 2 ============================ -->
+<div class="page">
+<header>
+  <div>
+    <h1>소피아 FLA 에세이 과제</h1>
+    <div class="sub">Personal Statement 300단어 + Self-Reflective Essay 400단어 &nbsp;|&nbsp; 원문 그대로</div>
+  </div>
+  <div class="meta">
+    <b>G30 · 이승훈 학생</b><br>
+    에세이 수업 : 09 / 14, 09 / 16<br>
+    에세이 완성 : 2026. 09. 18.
+  </div>
+</header>
+
+<h2>5. Personal Statement <span class="note">최대 300단어</span></h2>
+<div class="prompt">
+  <i>Write a personal statement of <b>no more than 300 words</b> that tells us about your motivation for joining
+  the Faculty of Liberal Arts at Sophia University. Include details about the experiences and achievements that
+  define you as an individual and how they connect with your educational and career goals. Your personal statement
+  is an opportunity for you to tell us about yourself and your life story: what you have done in the past, where you
+  would like to be in the future, and how the Faculty of Liberal Arts would be a steppingstone to help you reach
+  your goals. Do not use your 300 words to tell us information that is easily available on our website, such as the
+  characteristics of our curriculum or the courses professors teach — we already know about us; instead, we want to
+  learn more about you.</i>
+</div>
+
+<h2>6. Self-Reflective Essay <span class="note">최대 400단어 · 아래 3개 주제 중 택 1</span></h2>
+<div class="prompt" style="margin-bottom:9px;">
+  <i>We invite you to think about this essay less as a vehicle for self-promotion and more as an opportunity for
+  introspection. Each topic requires you to reflect deeply upon yourself, your community, or your culture —
+  achievements are best suited for the Personal Statement instead.</i>
+</div>
+
+<div class="topic">
+  <div class="th">Topic 1. Kahneman — hindsight bias / leadership</div>
+  <div class="tb">One of the challenges of living and working in today's world stems from the difficulty of grappling with
+  the following questions: What makes a good leader? And how can we distinguish good leadership from bad leadership?
+  According to psychologist Daniel Kahneman, this difficulty arises in part from hindsight bias, which can be described
+  as the tendency to “assess the quality of decisions not by whether the process was sound but by whether its outcome
+  was good or bad.” In other words, it is easy for us to fall into the cognitive trap of assuming that a bad outcome
+  must necessarily result from bad leadership, and a good outcome from good leadership, regardless of the process that
+  led to that outcome. Write an essay in which you reflect upon one of the following two experiences in your life:
+  a time when you made a good decision that resulted in a negative outcome, or a time when you made a poor decision
+  that resulted in a positive outcome. What did you learn from this experience, and how did it go on to influence the
+  way you approach leadership and/or decision-making?</div>
+  <div class="src">Source : Daniel Kahneman, <i>Thinking Fast and Slow</i>, Farrar, Straus and Giroux, 2011</div>
+</div>
+
+<div class="topic">
+  <div class="th">Topic 2. Wendy Doniger — myth</div>
+  <div class="tb">According to Indologist Wendy Doniger, “a myth is not a lie or a false statement to be contrasted with
+  truth or reality or fact.” Instead, “a myth is above all a story that is believed, believed to be true, and that people
+  continue to believe despite sometimes massive evidence that it is, in fact, a lie.” Myths are, in other words, stories
+  about us and our world that are important or sacred in some way — they communicate the shared values that bind
+  communities together. The truth or falsity we attribute to a myth is not based on its objectivity or historical
+  accuracy, but on what it expresses about human nature and the beliefs we hold dear. Write an essay in which you
+  introduce a myth that has played an important role in your life and analyze how that myth has influenced you in both
+  positive and negative ways.</div>
+  <div class="src">Source : Wendy Doniger, <i>The Implied Spider: Politics and Theology in Myth</i>, Columbia UP, 2011</div>
+</div>
+
+<div class="topic">
+  <div class="th">Topic 3. Vargas Llosa — art as critique</div>
+  <div class="tb">Aside from its beauty and aesthetic appeal, one important role that art plays in our society is to serve
+  as a means of critiquing our own way of life. Peruvian novelist Mario Vargas Llosa writes that “the greatest
+  contribution of literature to human progress is perhaps to remind us… that the world is badly made… and can be
+  improved,” and that “good literature, genuine literature, is always subversive, unsubmissive, rebellious: a challenge
+  to what exists.” Although Llosa is concerned solely with literature, the idea is just as applicable to other forms of
+  art. Write an essay in which you discuss the “rebellious” nature of a work of art (a novel, poem, film, painting, song,
+  performance, etc.) that you have encountered in the last two years and how it challenged your understanding of
+  yourself and/or the world around you.</div>
+  <div class="src">Source : Mario Vargas Llosa, “Why Literature?”, <i>The New Republic</i>, May 14, 2001</div>
+</div>
+
+
+
+<div class="two" style="margin-top:16px;">
+  <div>
+    <h3 style="margin-top:0;">첨부 양식</h3>
+    <ul style="font-size:12.5px;">
+      <li>sophia_essay.docx <span class="muted">— 에세이 제출 양식</span></li>
+      <li>FLA-Recommendation-Form_new.docx <span class="muted">— 추천서 양식</span></li>
+      <li>sophia_추천서.pdf <span class="muted">— 추천서 안내</span></li>
+    </ul>
+    <h3>Self-Reflective Essay 선택 주제</h3>
+    <table style="font-size:12.5px;">
+      <tr><th class="l" style="text-align:left;">주제</th><th style="width:66px;">선택</th></tr>
+      <tr><td class="l">Topic 1 — Kahneman · 리더십과 사후확증편향</td><td>☐</td></tr>
+      <tr><td class="l">Topic 2 — Doniger · 나에게 영향을 준 신화</td><td>☐</td></tr>
+      <tr><td class="l">Topic 3 — Vargas Llosa · 예술의 비판적 역할</td><td>☐</td></tr>
+    </table>
+    <h3>에세이 진행 관리</h3>
+    <table style="font-size:12.5px;">
+      <tr><th class="l" style="text-align:left;">구분</th><th>초안</th><th>첨삭</th><th>최종</th></tr>
+      <tr><td class="l">Personal Statement (300w)</td><td>☐</td><td>☐</td><td>☐</td></tr>
+      <tr><td class="l">Self-Reflective Essay (400w)</td><td>☐</td><td>☐</td><td>☐</td></tr>
+    </table>
+  </div>
+  <div>
+    <h3 style="margin-top:0;">에세이 진행 메모</h3>
+    <div class="memo"></div>
+  </div>
+</div>
 
 <footer>
   <span>G30 · 이승훈 학생 · 소피아(조치)대학 국제교양학부 지원 정리</span>
-  <span>A4 (210 × 297 mm) · 2026.09.08 기준</span>
+  <span>2 / 2 &nbsp;·&nbsp; A4 (210 × 297 mm) · 2026.09.08 기준</span>
 </footer>
+</div>
 
 </body>
 </html>
