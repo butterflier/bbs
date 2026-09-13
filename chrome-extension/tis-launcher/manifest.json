@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "TIS 교무 런처",
+  "version": "1.0.0",
+  "description": "새 탭을 수업 도구와 TIS 교사용 대시보드 링크 보드로 바꿉니다.",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

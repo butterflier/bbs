@@ -1,0 +1,228 @@
+:root {
+  color-scheme: light dark;
+  --ground: #eceef2;
+  --panel: #ffffff;
+  --panel-edge: #d6dae2;
+  --ink: #191c22;
+  --ink-soft: #565d6b;
+  --ink-faint: #8a919e;
+  --accent: #2b4ea8;
+  --accent-soft: #e2e8f7;
+  --rule: #c9ced8;
+  --shadow: 0 1px 0 rgba(25, 28, 34, .04), 0 6px 18px -14px rgba(25, 28, 34, .5);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #14161b;
+    --panel: #1d2027;
+    --panel-edge: #2c313b;
+    --ink: #e8eaef;
+    --ink-soft: #a3aab8;
+    --ink-faint: #737b8a;
+    --accent: #8fabf0;
+    --accent-soft: #232a3b;
+    --rule: #333944;
+    --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 8px 20px -16px rgba(0, 0, 0, .9);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+}
+
+.sheet {
+  max-width: 940px;
+  margin: 0 auto;
+  padding-inline: 20px;
+  padding-block: 56px 64px;
+}
+
+/* ── 머리말 ───────────────────────────── */
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.masthead h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+
+.masthead p {
+  margin: 6px 0 0;
+  color: var(--ink-soft);
+  font-size: .9rem;
+}
+
+.stamp {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .72rem;
+  line-height: 1.7;
+  color: var(--ink-faint);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.stamp b {
+  display: block;
+  color: var(--ink-soft);
+  font-weight: 600;
+  letter-spacing: .08em;
+}
+
+/* ── 구획 ─────────────────────────────── */
+section {
+  margin-top: 40px;
+}
+
+.band {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.band h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+
+.band .count {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .7rem;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.band .fill {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
+}
+
+/* ── 링크판 ───────────────────────────── */
+.tile {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 4px 12px;
+  padding: 14px 14px 13px;
+  background: var(--panel);
+  border: 1px solid var(--panel-edge);
+  border-left: 3px solid var(--rule);
+  border-radius: 3px;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  color: inherit;
+  transition: border-left-color .15s ease, transform .15s ease;
+}
+
+.tile:hover,
+.tile:focus-visible {
+  border-left-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.tile .name {
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+
+.tile .arrow {
+  grid-row: span 2;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .95rem;
+  color: var(--ink-faint);
+  transition: color .15s ease, transform .15s ease;
+}
+
+.tile:hover .arrow,
+.tile:focus-visible .arrow {
+  color: var(--accent);
+  transform: translateX(2px);
+}
+
+.tile .host {
+  grid-column: 1;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .68rem;
+  color: var(--ink-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tile .host em {
+  font-style: normal;
+  padding: 1px 5px;
+  margin-right: 6px;
+  border-radius: 2px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
+footer {
+  margin-top: 48px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .68rem;
+  color: var(--ink-faint);
+  line-height: 1.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .stamp {
+    text-align: left;
+  }
+}
