@@ -56,50 +56,14 @@ img {
   padding-block: 56px 64px;
 }
 
-/* ── 머리말 ───────────────────────────── */
-.masthead {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  padding-bottom: 18px;
-  border-bottom: 2px solid var(--ink);
-}
-
-.masthead h1 {
-  margin: 0;
-  font-size: clamp(1.75rem, 5vw, 2.4rem);
-  font-weight: 700;
-  letter-spacing: -.02em;
-  text-wrap: balance;
-}
-
-.masthead p {
-  margin: 6px 0 0;
-  color: var(--ink-soft);
-  font-size: .9rem;
-}
-
-.stamp {
-  font-family: "IBM Plex Mono", ui-monospace, monospace;
-  font-size: .72rem;
-  line-height: 1.7;
-  color: var(--ink-faint);
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-.stamp b {
-  display: block;
-  color: var(--ink-soft);
-  font-weight: 600;
-  letter-spacing: .08em;
-}
 
 /* ── 구획 ─────────────────────────────── */
 section {
   margin-top: 40px;
+}
+
+section:first-of-type {
+  margin-top: 0;
 }
 
 .band {
@@ -210,7 +174,7 @@ section {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 26px;
+  margin-bottom: 30px;
 }
 
 .app {
@@ -261,11 +225,5 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
-  }
-}
-
-@media (max-width: 420px) {
-  .stamp {
-    text-align: left;
   }
 }
