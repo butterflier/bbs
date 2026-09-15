@@ -198,9 +198,9 @@ section:first-of-type {
 }
 
 /* 삼각형 마크는 같은 상자에서도 작아 보여 한 단계 키운다 */
-.app.plate.wide svg {
+.app.plate.wide img {
   width: 36px;
-  height: 36px;
+  height: auto;
 }
 
 .app.full svg {
@@ -210,7 +210,8 @@ section:first-of-type {
   box-shadow: var(--shadow);
 }
 
-.app svg {
+.app svg,
+.app img {
   display: block;
 }
 
