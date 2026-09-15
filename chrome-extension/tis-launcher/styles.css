@@ -197,6 +197,12 @@ section:first-of-type {
   height: 28px;
 }
 
+/* 삼각형 마크는 같은 상자에서도 작아 보여 한 단계 키운다 */
+.app.plate.wide svg {
+  width: 36px;
+  height: 36px;
+}
+
 .app.full svg {
   width: 48px;
   height: 48px;
