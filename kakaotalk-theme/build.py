@@ -50,9 +50,9 @@ PALETTES = {
         'accent_dim': '#2F58B0',  # 포인트 눌림
         'on_accent': '#FFFFFF',
 
-        # 말풍선 — 보낸쪽은 '수업' 색, 받은쪽은 흰 카드에 구분선
-        'send':       ('#D0E6FF', None),
-        'send_alt':   ('#BCDAFB', None),
+        # 말풍선 — 보낸쪽은 '휴강' 분홍, 받은쪽은 흰 카드에 구분선
+        'send':       ('#FFD5D8', None),
+        'send_alt':   ('#FFC2C7', None),
         'send_text':  '#202833',
         'recv':       ('#FFFFFF', '#DEE2E7'),
         'recv_alt':   ('#F7F8FA', '#DEE2E7'),
@@ -84,8 +84,8 @@ PALETTES = {
         'accent_dim': '#5F87D6',
         'on_accent': '#14161A',
 
-        'send':       ('#23344E', '#3A5079'),
-        'send_alt':   ('#2B3F5C', '#3A5079'),
+        'send':       ('#402327', '#6B3C42'),
+        'send_alt':   ('#4E2C31', '#6B3C42'),
         'send_text':  '#ECEEF1',
         'recv':       ('#1B1E23', '#333A42'),
         'recv_alt':   ('#22262C', '#333A42'),
