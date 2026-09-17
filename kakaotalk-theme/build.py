@@ -7,11 +7,11 @@
 색은 아래 PALETTES 한 곳에만 있다 — 다른 데를 고칠 필요가 없다.
 
 색 출처
-  - TIS 교사 페이지 · 심플컬러 시안 아티팩트의 :root 토큰
-  - jyugyo_calendar/references/colors.json 의 일정 블록 색
+  말풍선과 글자색은 참고 스크린샷에서 직접 뽑았다 —
+  말풍선 바탕 #FBE8F1, 글자·테두리 #C86B95, 받은쪽 흰 바탕,
+  제목 #191919, 보조글 #BEA3B0, 눌린 줄 #FCEDF3.
 
-디자인 규칙(jyugyo_calendar/references/design-rules.md)을 그대로 따른다.
-  평평하고 간결한 블록, 모서리 최대 4pt, 그림자·그라데이션·일러스트 없음.
+그림자·그라데이션·일러스트는 여전히 쓰지 않는다. 평평한 단색 말풍선이다.
 """
 import os
 import zipfile
@@ -24,8 +24,9 @@ DIST = os.path.join(ROOT, 'dist')
 VERSION = '1.0.0'
 
 # 말풍선 기하 (pt). CAP 은 CSS 의 cap inset 과 반드시 같아야 한다.
-BUBBLE_SIZE, BUBBLE_RADIUS, CAP = 28, 4, 10
-INSET_V, INSET_H = 9, 14          # 글자와 말풍선 사이 여백 (pt)
+# 반지름 13pt 는 참고 스크린샷의 둥근 말풍선을 잰 값이다.
+BUBBLE_SIZE, BUBBLE_RADIUS, CAP = 34, 13, 16
+INSET_V, INSET_H = 10, 16         # 글자와 말풍선 사이 여백 (pt)
 
 TAB_KINDS = ('friends', 'chats', 'browse', 'find', 'piccoma', 'shopping', 'more')
 BULLET_SLOTS = ('first', 'second', 'third', 'fourth')
@@ -34,70 +35,71 @@ BULLET_SLOTS = ('first', 'second', 'third', 'fourth')
 # --- 팔레트 --------------------------------------------------------------
 
 PALETTES = {
-    'TIS-Jyugyo-Light': {
-        'name': 'TIS 수업일정 라이트',
-        'pkg': 'tis.jyugyo.light',
+    'jyugyo_pink': {
+        'name': 'jyugyo_pink',
+        'pkg': 'tis.jyugyo.pink',
 
-        'bg':        '#FFFFFF',   # 목록 배경            (--bg)
-        'surface':   '#FFFFFF',   # 입력바·알림배너      (--surface)
-        'bg_deep':   '#EFF1F3',   # 채팅방 바닥          (past / --surface-sunken)
-        'pressed':   '#ECEEF1',   # 눌린 줄              (--line-soft)
-        'border':    '#DEE2E7',   # 구분선               (grid / --line)
+        'bg':        '#FFFFFF',   # 목록 배경
+        'surface':   '#FFFFFF',   # 입력바·알림배너
+        'bg_deep':   '#FFFFFF',   # 채팅방 바닥 (스크린샷도 흰 바탕)
+        'pressed':   '#FCEDF3',   # 눌린 줄 — 스크린샷 별무늬 분홍
+        'border':    '#F5DCE8',   # 구분선
 
-        'text':      '#202833',   # 본문                 (--ink)
-        'subtext':   '#626C78',   # 보조글               (--ink-soft)
-        'accent':    '#3E6FD9',   # 포인트               (--accent)
-        'accent_dim': '#2F58B0',  # 포인트 눌림
+        'text':      '#191919',   # 제목·이름   (스크린샷 헤더)
+        'subtext':   '#BEA3B0',   # 보조글      (스크린샷 입력창 안내문)
+        'accent':    '#C86B95',   # 포인트      (스크린샷 말풍선 글자)
+        'tab_normal': '#B792A3',  # 선택 안 된 탭 아이콘 (보조글색은 흰 바탕에서 너무 흐리다)
+        'accent_dim': '#B05780',
         'on_accent': '#FFFFFF',
 
-        # 말풍선 — 보낸쪽은 '휴강' 분홍, 받은쪽은 흰 카드에 구분선
-        'send':       ('#FFD5D8', None),
-        'send_alt':   ('#FFC2C7', None),
-        'send_text':  '#202833',
-        'recv':       ('#FFFFFF', '#DEE2E7'),
-        'recv_alt':   ('#F7F8FA', '#DEE2E7'),
-        'recv_text':  '#202833',
+        # 말풍선 — 보낸쪽 연분홍 바탕, 받은쪽 흰 바탕. 둘 다 로즈색 테두리와 글자
+        'send':       ('#FBE8F1', '#C86B95'),
+        'send_alt':   ('#F8DCEA', '#C86B95'),
+        'send_text':  '#C86B95',
+        'recv':       ('#FFFFFF', '#C86B95'),
+        'recv_alt':   ('#FDF5F9', '#C86B95'),
+        'recv_text':  '#C86B95',
 
         # 기본 프로필 3장 / 잠금화면 동그라미 4자리
-        'profiles': ('#D0E6FF', '#FFF0BD', '#E0D8FF'),
-        'profile_ink': '#FFFFFF',
-        'bullets':  ('#3E6FD9', '#C79A2E', '#7657A6', '#D9525C'),
-        'bullet_empty': '#DEE2E7',
+        'profiles': ('#FBE8F1', '#F6D3E3', '#EFBCD5'),
+        'profile_ink': '#C86B95',
+        'bullets':  ('#C86B95', '#D98CAE', '#E7A9C4', '#B05780'),
+        'bullet_empty': '#F0D8E4',
 
-        # 테마 아이콘에 쓰는 일정 블록 색
-        'chips': ('#D0E6FF', '#FFF0BD', '#E0D8FF', '#FFD5D8'),
+        'chips': ('#FBE8F1', '#F6D3E3', '#EFBCD5', '#E7A3C7'),
         'icon_bg': '#FFFFFF',
     },
-    'TIS-Jyugyo-Dark': {
-        'name': 'TIS 수업일정 다크',
-        'pkg': 'tis.jyugyo.dark',
+    'jyugyo_pink_dark': {
+        'name': 'jyugyo_pink dark',
+        'pkg': 'tis.jyugyo.pink.dark',
 
-        'bg':        '#14161A',
-        'surface':   '#1B1E23',
-        'bg_deep':   '#22262C',
-        'pressed':   '#2A2F35',
-        'border':    '#333A42',
+        'bg':        '#161315',
+        'surface':   '#1D1A1C',
+        'bg_deep':   '#1D1A1C',
+        'pressed':   '#2A2429',
+        'border':    '#3A3238',
 
-        'text':      '#ECEEF1',
-        'subtext':   '#A7AFBA',
-        'accent':    '#7FA6F2',
-        'accent_dim': '#5F87D6',
-        'on_accent': '#14161A',
+        'text':      '#F3ECEF',
+        'subtext':   '#A8949E',
+        'accent':    '#E48FB4',
+        'tab_normal': '#A8949E',
+        'accent_dim': '#C56F95',
+        'on_accent': '#161315',
 
-        'send':       ('#402327', '#6B3C42'),
-        'send_alt':   ('#4E2C31', '#6B3C42'),
-        'send_text':  '#ECEEF1',
-        'recv':       ('#1B1E23', '#333A42'),
-        'recv_alt':   ('#22262C', '#333A42'),
-        'recv_text':  '#ECEEF1',
+        'send':       ('#3A2430', '#E48FB4'),
+        'send_alt':   ('#452B39', '#E48FB4'),
+        'send_text':  '#F6D9E6',
+        'recv':       ('#1D1A1C', '#E48FB4'),
+        'recv_alt':   ('#262023', '#E48FB4'),
+        'recv_text':  '#F6D9E6',
 
-        'profiles': ('#23344E', '#4A4028', '#332A4E'),
-        'profile_ink': '#ECEEF1',
-        'bullets':  ('#7FA6F2', '#D8B45A', '#A98FD6', '#E5878E'),
-        'bullet_empty': '#333A42',
+        'profiles': ('#3A2430', '#4A2E3C', '#5A3848'),
+        'profile_ink': '#E48FB4',
+        'bullets':  ('#E48FB4', '#C56F95', '#EFAECB', '#A85B7E'),
+        'bullet_empty': '#3A3238',
 
-        'chips': ('#23344E', '#4A4028', '#332A4E', '#402327'),
-        'icon_bg': '#1B1E23',
+        'chips': ('#3A2430', '#4A2E3C', '#5A3848', '#6B4256'),
+        'icon_bg': '#1D1A1C',
     },
 }
 
@@ -445,7 +447,7 @@ def build(key, t):
     tab_lines = []
     for kind in TAB_KINDS:
         name = 'maintabIco' + kind.capitalize()
-        for suffix, col in (('', t['subtext']), ('Selected', t['accent'])):
+        for suffix, col in (('', t['tab_normal']), ('Selected', t['accent'])):
             for scale in (2, 3):
                 tab_icon(kind, 28 * scale, col).save(
                     out('%s%s@%dx.png' % (name, suffix, scale)))

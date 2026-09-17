@@ -31,7 +31,9 @@ def img2x(key, name):
 
 def stretch(bub, w, h):
     """cap inset 대로 9조각 늘리기. 카톡이 말풍선을 늘리는 방식과 같다."""
-    cap = build.CAP * 2                      # @2x 이미지라 pt 의 두 배
+    # 들어온 그림은 @2x 다. 1x 로 줄여 놓고 pt 단위 cap 을 그대로 쓴다
+    bub = bub.resize((build.BUBBLE_SIZE, build.BUBBLE_SIZE), Image.LANCZOS)
+    cap = build.CAP
     s = bub.size[0]
     out = Image.new('RGBA', (w, h), (0, 0, 0, 0))
     xs = [(0, cap, 0, cap), (cap, s - cap, cap, w - cap), (s - cap, s, w - cap, w)]
@@ -40,7 +42,7 @@ def stretch(bub, w, h):
         for sy0, sy1, dy0, dy1 in ys:
             if dx1 <= dx0 or dy1 <= dy0:
                 continue
-            piece = bub.crop((sx0, sy0, sx1, sy1)).resize((dx1 - dx0, dy1 - dy0), Image.NEAREST)
+            piece = bub.crop((sx0, sy0, sx1, sy1)).resize((dx1 - dx0, dy1 - dy0), Image.LANCZOS)
             out.paste(piece, (dx0, dy0), piece)
     return out
 
@@ -117,7 +119,7 @@ def main():
     sheet = Image.new('RGBA', (W * len(shots) + GAP * (len(shots) + 1),
                                H + head + GAP), (250, 250, 250, 255))
     d = ImageDraw.Draw(sheet)
-    d.text((GAP, 28), 'TIS 수업일정 · iOS 카카오톡 테마', font=font(24, True), fill=(32, 40, 51, 255))
+    d.text((GAP, 28), 'jyugyo_pink · iOS 카카오톡 테마', font=font(24, True), fill=(32, 40, 51, 255))
     for i, (key, t) in enumerate(shots):
         x = GAP + i * (W + GAP)
         ico = Image.open(os.path.join(ROOT, 'build-src', key, 'Images',
