@@ -24,9 +24,9 @@ DIST = os.path.join(ROOT, 'dist')
 VERSION = '1.0.0'
 
 # 말풍선 기하 (pt). CAP 은 CSS 의 cap inset 과 반드시 같아야 한다.
-# 반지름 13pt 는 참고 스크린샷의 둥근 말풍선을 잰 값이다.
-BUBBLE_SIZE, BUBBLE_RADIUS, CAP = 34, 13, 16
-INSET_V, INSET_H = 10, 16         # 글자와 말풍선 사이 여백 (pt)
+# 모서리 4pt — 스크린샷은 훨씬 둥글지만 각진 쪽으로 쓰기로 정했다.
+BUBBLE_SIZE, BUBBLE_RADIUS, CAP = 28, 4, 10
+INSET_V, INSET_H = 9, 14          # 글자와 말풍선 사이 여백 (pt)
 
 TAB_KINDS = ('friends', 'chats', 'browse', 'find', 'piccoma', 'shopping', 'more')
 BULLET_SLOTS = ('first', 'second', 'third', 'fourth')
