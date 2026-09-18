@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>개인수업 시간표</title>
+<style>
+  @font-face {
+    font-family: "Paperlogy";
+    src: url("/fonts/Paperlogy-4Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Paperlogy";
+    src: url("/fonts/Paperlogy-5Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Paperlogy";
+    src: url("/fonts/Paperlogy-6SemiBold.woff2") format("woff2");
+    font-weight: 600;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Paperlogy";
+    src: url("/fonts/Paperlogy-7Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  :root {
+    --line: #DEE2E7;
+    --line-w: 1.4px;
+    --ink: #1B1D21;
+    --ink-soft: #6B7280;
+    --accent: #2F6FEB;
+    --danger: #C2403C;
+    --radius: 4px;
+    --hour: 62px;
+    --time-col: 58px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: #FFFFFF;
+    color: var(--ink);
+    font-family: "Paperlogy", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 22px 18px 56px; }
+
+  header.top {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    margin-bottom: 16px;
+  }
+  header.top h1 { font-size: 21px; font-weight: 700; margin: 0; letter-spacing: -0.2px; }
+  .meta { font-size: 13px; color: var(--ink-soft); }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .spacer { flex: 1 1 auto; }
+
+  /* 탭/버튼: 개별 테두리 버튼 + 활성 시 accent 채움 (TIS 교사 페이지와 동일) */
+  .btn {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    background: #FFFFFF;
+    border: var(--line-w) solid var(--line);
+    border-radius: var(--radius);
+    padding: 7px 13px;
+    cursor: pointer;
+    line-height: 1.2;
+  }
+  .btn:hover { border-color: #C3C9D2; }
+  .btn.is-active,
+  .btn.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #FFFFFF;
+  }
+  .btn.danger { color: var(--danger); border-color: #E6C7C6; background: #FFFFFF; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+
+  .persons { display: flex; gap: 6px; flex-wrap: wrap; }
+  .persons[hidden] { display: none; }
+
+  /* ── 주간 그리드 ───────────────────────────────── */
+  .sheet {
+    border: var(--line-w) solid var(--line);
+    border-radius: var(--radius);
+    overflow: auto;
+    max-height: calc(100vh - 190px);
+    background: #FFFFFF;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: var(--time-col) repeat(7, minmax(112px, 1fr));
+    grid-template-rows: auto auto;
+    min-width: 860px;
+  }
+
+  .head {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: #FFFFFF;
+    border-bottom: var(--line-w) solid var(--line);
+    border-left: var(--line-w) solid var(--line);
+    padding: 9px 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .head .sub { display: block; font-size: 11px; font-weight: 400; color: var(--ink-soft); margin-top: 2px; }
+  .head.weekend { color: var(--ink-soft); }
+  .head.today { color: var(--accent); }
+  /* 시간축 헤더(좌상단 모서리)는 가로·세로 양쪽 sticky라 가장 위 레이어 */
+  .head.corner {
+    left: 0;
+    z-index: 40;
+    border-left: none;
+  }
+
+  /* sticky 요소는 그 자체로 위치 기준이 되므로 .tick의 absolute가 여기에 걸린다.
+     z-index는 수업 블록(10)보다 높아야 가로 스크롤 시 가려지지 않는다. */
+  .timecol {
+    position: sticky;
+    left: 0;
+    z-index: 30;
+    background: #FFFFFF;
+  }
+
+  .tick {
+    position: absolute;
+    right: 7px;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .day {
+    position: relative;
+    border-left: var(--line-w) solid var(--line);
+    background-image:
+      repeating-linear-gradient(
+        to bottom,
+        var(--line) 0,
+        var(--line) var(--line-w),
+        transparent var(--line-w),
+        transparent var(--hour)
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        #F1F3F5 0,
+        #F1F3F5 1px,
+        transparent 1px,
+        transparent calc(var(--hour) / 2)
+      );
+    background-position: 0 0, 0 calc(var(--hour) / 2);
+  }
+  .day.weekend { background-color: #FBFBFC; }
+
+  .lesson {
+    position: absolute;
+    z-index: 10;
+    border: var(--line-w) solid;
+    border-radius: var(--radius);
+    padding: 4px 6px;
+    overflow: hidden;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1.32;
+    text-align: left;
+    font-family: inherit;
+  }
+  .lesson .t { font-weight: 600; display: block; }
+  .lesson .s { display: block; font-size: 11px; opacity: 0.85; }
+  .lesson.short { padding: 1px 6px; line-height: 1.15; }
+  .lesson.short .s { display: none; }
+
+  .empty {
+    padding: 34px 16px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  /* ── 모달 ─────────────────────────────────────── */
+  .scrim {
+    position: fixed;
+    inset: 0;
+    background: rgba(27, 29, 33, 0.34);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 36px 16px;
+    overflow: auto;
+    z-index: 100;
+  }
+  .scrim[hidden] { display: none; }
+
+  .modal {
+    background: #FFFFFF;
+    border: var(--line-w) solid var(--line);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 440px;
+    padding: 18px;
+  }
+  .modal h2 { margin: 0 0 14px; font-size: 16px; font-weight: 700; }
+
+  .field { margin-bottom: 12px; }
+  .field label { display: block; font-size: 12px; font-weight: 500; color: var(--ink-soft); margin-bottom: 5px; }
+  .field input[type="text"],
+  .field input[type="time"],
+  .field input[type="password"],
+  .field textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink);
+    background: #FFFFFF;
+    border: var(--line-w) solid var(--line);
+    border-radius: var(--radius);
+    padding: 8px 10px;
+  }
+  .field textarea { resize: vertical; min-height: 58px; }
+  .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+
+  .row { display: flex; gap: 10px; }
+  .row > .field { flex: 1 1 0; }
+
+  .dows { display: flex; gap: 6px; flex-wrap: wrap; }
+  .dows .btn { padding: 6px 0; width: 40px; text-align: center; }
+
+  .modal-actions { display: flex; gap: 8px; margin-top: 18px; align-items: center; }
+
+  .msg { font-size: 12px; color: var(--danger); min-height: 16px; margin-top: 10px; }
+  .msg.ok { color: var(--ink-soft); }
+
+  .hint { font-size: 12px; color: var(--ink-soft); margin-top: 14px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>개인수업 시간표</h1>
+    <span class="meta" id="summary"></span>
+  </header>
+
+  <div class="toolbar">
+    <div class="persons" id="persons" hidden></div>
+    <span class="spacer"></span>
+    <button class="btn" id="btn-reload" type="button">새로고침</button>
+    <button class="btn primary" id="btn-new" type="button">수업 등록</button>
+  </div>
+
+  <div class="sheet" id="sheet">
+    <div class="empty" id="empty">불러오는 중…</div>
+  </div>
+
+  <p class="hint">
+    링크를 아는 사람은 누구나 실시간으로 조회할 수 있고, 등록·수정·삭제에만 공유 비밀번호가 필요합니다.
+    수업 블록을 누르면 수정·삭제 창이 열립니다.
+  </p>
+</div>
+
+<div class="scrim" id="scrim" hidden>
+  <form class="modal" id="form">
+    <h2 id="modal-title">수업 등록</h2>
+
+    <div class="row">
+      <div class="field">
+        <label for="f-person">이름</label>
+        <input type="text" id="f-person" list="person-list" maxlength="40" required />
+        <datalist id="person-list"></datalist>
+      </div>
+      <div class="field">
+        <label for="f-subject">과목 (선택)</label>
+        <input type="text" id="f-subject" maxlength="40" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="f-title">수업명 / 학생명</label>
+      <input type="text" id="f-title" maxlength="60" required />
+    </div>
+
+    <div class="field">
+      <label id="dow-label">요일 <span id="dow-hint">(여러 개 선택 가능)</span></label>
+      <div class="dows" id="dows"></div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="f-start">시작</label>
+        <input type="time" id="f-start" step="300" required />
+      </div>
+      <div class="field">
+        <label for="f-end">종료</label>
+        <input type="time" id="f-end" step="300" required />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="f-location">장소 (선택)</label>
+        <input type="text" id="f-location" maxlength="40" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="f-memo">메모 (선택)</label>
+      <textarea id="f-memo" maxlength="500"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="f-password">공유 비밀번호</label>
+      <input type="password" id="f-password" autocomplete="current-password" required />
+    </div>
+
+    <div class="msg" id="msg"></div>
+
+    <div class="modal-actions">
+      <button class="btn primary" id="btn-save" type="submit">저장</button>
+      <button class="btn" id="btn-cancel" type="button">취소</button>
+      <span class="spacer"></span>
+      <button class="btn danger" id="btn-delete" type="button" hidden>삭제</button>
+    </div>
+  </form>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const DOW_LABELS = ["월", "화", "수", "목", "금", "토", "일"];
+  const ALL = "__all__";
+  const HOUR_PX = 62;
+  const DEFAULT_START = 9 * 60;   // 09:00
+  const DEFAULT_END = 22 * 60;    // 22:00
+  const PW_KEY = "pls.password";
+
+  const state = {
+    lessons: [],
+    persons: [],
+    person: ALL,
+    editing: null,      // 수정 중인 lesson 객체 (없으면 신규 등록)
+    selectedDows: [],
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+
+  const pad2 = (n) => String(n).padStart(2, "0");
+  const toLabel = (min) => pad2(Math.floor(min / 60)) + ":" + pad2(min % 60);
+  const toMin = (value) => {
+    const m = /^(\d{1,2}):(\d{2})$/.exec(value || "");
+    if (!m) return null;
+    const min = Number(m[1]) * 60 + Number(m[2]);
+    return min >= 0 && min <= 1440 ? min : null;
+  };
+
+  /** 문자열을 0~359 색상값으로. 같은 수업은 늘 같은 색이 된다. */
+  function hueOf(seed) {
+    let h = 0;
+    for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) % 360;
+    return h;
+  }
+
+  /** 하루치 수업을 겹침 없이 배치. 겹치는 것끼리만 가로로 나눠 쓴다. */
+  function layoutDay(items) {
+    const sorted = items.slice().sort((a, b) => a.start_min - b.start_min || a.end_min - b.end_min);
+    const placed = [];
+    let cluster = [];
+    let clusterEnd = -1;
+
+    const flush = () => {
+      if (!cluster.length) return;
+      const colEnds = [];
+      const assigned = [];
+      for (const item of cluster) {
+        let col = colEnds.findIndex((end) => end <= item.start_min);
+        if (col === -1) {
+          col = colEnds.length;
+          colEnds.push(item.end_min);
+        } else {
+          colEnds[col] = item.end_min;
+        }
+        assigned.push({ item, col });
+      }
+      for (const a of assigned) placed.push({ ...a, cols: colEnds.length });
+      cluster = [];
+      clusterEnd = -1;
+    };
+
+    for (const item of sorted) {
+      if (cluster.length && item.start_min >= clusterEnd) flush();
+      cluster.push(item);
+      clusterEnd = Math.max(clusterEnd, item.end_min);
+    }
+    flush();
+    return placed;
+  }
+
+  function visibleLessons() {
+    if (state.person === ALL) return state.lessons;
+    return state.lessons.filter((l) => l.person === state.person);
+  }
+
+  function timeRange(lessons) {
+    let start = DEFAULT_START;
+    let end = DEFAULT_END;
+    for (const l of lessons) {
+      start = Math.min(start, l.start_min);
+      end = Math.max(end, l.end_min);
+    }
+    start = Math.floor(start / 60) * 60;
+    end = Math.ceil(end / 60) * 60;
+    if (end - start < 240) end = start + 240;
+    return { start, end };
+  }
+
+  function renderPersons() {
+    const box = $("persons");
+    if (state.persons.length < 2) {
+      box.hidden = true;
+      box.innerHTML = "";
+      return;
+    }
+    box.hidden = false;
+    const options = [{ key: ALL, label: "전체" }].concat(
+      state.persons.map((p) => ({ key: p, label: p })),
+    );
+    box.innerHTML = options
+      .map((o) => '<button type="button" class="btn' + (state.person === o.key ? " is-active" : "") +
+        '" data-person="' + esc(o.key) + '">' + esc(o.label) + "</button>")
+      .join("");
+  }
+
+  function renderSummary(lessons) {
+    const minutes = lessons.reduce((sum, l) => sum + (l.end_min - l.start_min), 0);
+    const hours = Math.round((minutes / 60) * 10) / 10;
+    const who = state.person === ALL
+      ? (state.persons.length > 1 ? "전체" : (state.persons[0] || ""))
+      : state.person;
+    $("summary").textContent = lessons.length
+      ? (who ? who + " · " : "") + "주 " + lessons.length + "개 수업 · 총 " + hours + "시간"
+      : "";
+  }
+
+  function renderGrid() {
+    const lessons = visibleLessons();
+    renderSummary(lessons);
+
+    const sheet = $("sheet");
+    if (!lessons.length && !state.lessons.length) {
+      sheet.innerHTML = '<div class="empty">아직 등록된 수업이 없습니다. 오른쪽 위 “수업 등록”으로 추가해 주세요.</div>';
+      return;
+    }
+
+    const { start, end } = timeRange(lessons);
+    const totalMin = end - start;
+    const pxPerMin = HOUR_PX / 60;
+    const height = Math.round(totalMin * pxPerMin);
+    // JS Date는 일요일이 0 — 여기 요일 인덱스(월=0)로 옮긴다
+    const todayIdx = (new Date().getDay() + 6) % 7;
+
+    const ticks = [];
+    for (let m = start; m <= end; m += 60) {
+      const top = Math.round((m - start) * pxPerMin);
+      // 첫 눈금은 위로 넘쳐 잘리므로 선 아래에 붙인다
+      const shift = m === start ? "transform:translateY(0)" : "";
+      ticks.push('<span class="tick" style="top:' + top + "px;" + shift + '">' + toLabel(m) + "</span>");
+    }
+
+    const byDow = DOW_LABELS.map(() => []);
+    for (const l of lessons) byDow[l.dow].push(l);
+
+    const heads = ['<div class="head corner"></div>'];
+    const cols = ['<div class="timecol" style="height:' + height + 'px">' + ticks.join("") + "</div>"];
+
+    DOW_LABELS.forEach((label, dow) => {
+      const weekend = dow >= 5;
+      const count = byDow[dow].length;
+      heads.push(
+        '<div class="head' + (weekend ? " weekend" : "") + (dow === todayIdx ? " today" : "") + '">' +
+          esc(label) + '<span class="sub">' + (count ? count + "개" : "—") + "</span></div>",
+      );
+
+      const blocks = layoutDay(byDow[dow]).map(({ item, col, cols: n }) => {
+        const top = Math.round((item.start_min - start) * pxPerMin);
+        const h = Math.max(18, Math.round((item.end_min - item.start_min) * pxPerMin) - 2);
+        const widthPct = 100 / n;
+        const hue = hueOf(item.title + "|" + (item.subject || ""));
+        const style = [
+          "top:" + top + "px",
+          "height:" + h + "px",
+          "left:calc(" + (col * widthPct) + "% + 3px)",
+          "width:calc(" + widthPct + "% - 6px)",
+          "background:hsl(" + hue + " 72% 95%)",
+          "border-color:hsl(" + hue + " 48% 74%)",
+          "color:hsl(" + hue + " 45% 26%)",
+        ].join(";");
+        const detail = [item.subject, item.location].filter(Boolean).join(" · ");
+        const sub = toLabel(item.start_min) + "–" + toLabel(item.end_min) + (detail ? " · " + detail : "");
+        return (
+          '<button type="button" class="lesson' + (h < 34 ? " short" : "") + '" style="' + style +
+          '" data-id="' + esc(item.id) + '" title="' + esc(item.title + " " + sub) + '">' +
+          '<span class="t">' + esc(item.title) + "</span>" +
+          '<span class="s">' + esc(sub) + "</span>" +
+          "</button>"
+        );
+      });
+
+      cols.push(
+        '<div class="day' + (weekend ? " weekend" : "") + '" style="height:' + height + 'px">' +
+          blocks.join("") + "</div>",
+      );
+    });
+
+    sheet.innerHTML = '<div class="grid">' + heads.join("") + cols.join("") + "</div>";
+  }
+
+  // ── 모달 ────────────────────────────────────────
+  function renderDows() {
+    $("dows").innerHTML = DOW_LABELS.map((label, i) =>
+      '<button type="button" class="btn' + (state.selectedDows.includes(i) ? " is-active" : "") +
+      '" data-dow="' + i + '">' + label + "</button>",
+    ).join("");
+    $("dow-hint").hidden = !!state.editing;
+  }
+
+  function openModal(lesson) {
+    state.editing = lesson || null;
+    state.selectedDows = lesson ? [lesson.dow] : [];
+
+    $("modal-title").textContent = lesson ? "수업 수정" : "수업 등록";
+    $("btn-delete").hidden = !lesson;
+    $("msg").textContent = "";
+    $("msg").classList.remove("ok");
+
+    const defaultPerson = lesson ? lesson.person
+      : (state.person !== ALL ? state.person : (state.persons[0] || ""));
+    $("f-person").value = defaultPerson;
+    $("f-title").value = lesson ? lesson.title : "";
+    $("f-subject").value = lesson && lesson.subject ? lesson.subject : "";
+    $("f-location").value = lesson && lesson.location ? lesson.location : "";
+    $("f-memo").value = lesson && lesson.memo ? lesson.memo : "";
+    $("f-start").value = toLabel(lesson ? lesson.start_min : 16 * 60);
+    $("f-end").value = toLabel(lesson ? lesson.end_min : 17 * 60 + 30);
+
+    let saved = "";
+    try { saved = sessionStorage.getItem(PW_KEY) || ""; } catch (e) { /* 프라이빗 모드 */ }
+    $("f-password").value = saved;
+
+    $("person-list").innerHTML = state.persons.map((p) => '<option value="' + esc(p) + '"></option>').join("");
+
+    renderDows();
+    $("scrim").hidden = false;
+    $("f-title").focus();
+  }
+
+  function closeModal() {
+    $("scrim").hidden = true;
+    state.editing = null;
+  }
+
+  function setBusy(busy) {
+    $("btn-save").disabled = busy;
+    $("btn-delete").disabled = busy;
+  }
+
+  function fail(message) {
+    const msg = $("msg");
+    msg.classList.remove("ok");
+    msg.textContent = message;
+  }
+
+  async function load() {
+    try {
+      const res = await fetch("/api/lessons", { cache: "no-store" });
+      if (!res.ok) throw new Error("불러오기 실패 (" + res.status + ")");
+      const data = await res.json();
+      state.lessons = data.lessons || [];
+      state.persons = data.persons || [];
+      if (state.person !== ALL && !state.persons.includes(state.person)) state.person = ALL;
+      renderPersons();
+      renderGrid();
+    } catch (err) {
+      $("sheet").innerHTML = '<div class="empty">' + esc(err.message || "불러오지 못했습니다.") + "</div>";
+    }
+  }
+
+  function collect() {
+    const start = toMin($("f-start").value);
+    const end = toMin($("f-end").value);
+    if (start === null || end === null) return "시간을 확인해 주세요.";
+    if (end <= start) return "종료 시간은 시작 시간보다 늦어야 합니다.";
+    if (!state.selectedDows.length) return "요일을 선택해 주세요.";
+
+    const person = $("f-person").value.trim();
+    const title = $("f-title").value.trim();
+    if (!person) return "이름을 입력해 주세요.";
+    if (!title) return "수업명 / 학생명을 입력해 주세요.";
+
+    const password = $("f-password").value;
+    if (!password) return "공유 비밀번호를 입력해 주세요.";
+
+    return {
+      password,
+      base: {
+        person,
+        title,
+        subject: $("f-subject").value.trim(),
+        location: $("f-location").value.trim(),
+        memo: $("f-memo").value.trim(),
+        start_min: start,
+        end_min: end,
+      },
+    };
+  }
+
+  async function send(url, method, payload) {
+    const res = await fetch(url, {
+      method,
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || "요청에 실패했습니다 (" + res.status + ")");
+    }
+    return res.json();
+  }
+
+  async function submit(event) {
+    event.preventDefault();
+    const collected = collect();
+    if (typeof collected === "string") return fail(collected);
+
+    setBusy(true);
+    try {
+      if (state.editing) {
+        await send("/api/lessons/" + state.editing.id, "PUT", {
+          password: collected.password,
+          ...collected.base,
+          dow: state.selectedDows[0],
+        });
+      } else {
+        // 선택한 요일마다 한 건씩 등록한다
+        for (const dow of state.selectedDows) {
+          await send("/api/lessons", "POST", { password: collected.password, ...collected.base, dow });
+        }
+      }
+      try { sessionStorage.setItem(PW_KEY, collected.password); } catch (e) { /* 프라이빗 모드 */ }
+      closeModal();
+      await load();
+    } catch (err) {
+      fail(err.message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function remove() {
+    if (!state.editing) return;
+    const password = $("f-password").value;
+    if (!password) return fail("공유 비밀번호를 입력해 주세요.");
+    if (!confirm("“" + state.editing.title + "” 수업을 삭제할까요?")) return;
+
+    setBusy(true);
+    try {
+      await send("/api/lessons/" + state.editing.id, "DELETE", { password });
+      try { sessionStorage.setItem(PW_KEY, password); } catch (e) { /* 프라이빗 모드 */ }
+      closeModal();
+      await load();
+    } catch (err) {
+      fail(err.message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // ── 이벤트 ──────────────────────────────────────
+  $("btn-new").addEventListener("click", () => openModal(null));
+  $("btn-reload").addEventListener("click", load);
+  $("btn-cancel").addEventListener("click", closeModal);
+  $("btn-delete").addEventListener("click", remove);
+  $("form").addEventListener("submit", submit);
+
+  $("scrim").addEventListener("mousedown", (e) => {
+    if (e.target === $("scrim")) closeModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !$("scrim").hidden) closeModal();
+  });
+
+  $("dows").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-dow]");
+    if (!btn) return;
+    const dow = Number(btn.dataset.dow);
+    if (state.editing) {
+      state.selectedDows = [dow];               // 수정할 때는 한 요일만
+    } else if (state.selectedDows.includes(dow)) {
+      state.selectedDows = state.selectedDows.filter((d) => d !== dow);
+    } else {
+      state.selectedDows.push(dow);
+    }
+    renderDows();
+  });
+
+  $("persons").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-person]");
+    if (!btn) return;
+    state.person = btn.dataset.person;
+    renderPersons();
+    renderGrid();
+  });
+
+  $("sheet").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-id]");
+    if (!btn) return;
+    const lesson = state.lessons.find((l) => l.id === btn.dataset.id);
+    if (lesson) openModal(lesson);
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>
