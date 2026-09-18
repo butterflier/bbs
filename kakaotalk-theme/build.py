@@ -52,10 +52,10 @@ PALETTES = {
         'accent_dim': '#B05780',
         'on_accent': '#FFFFFF',
 
-        # 말풍선 — 보낸쪽 연분홍 바탕, 받은쪽 흰 바탕. 둘 다 로즈색 테두리와 글자
-        'send':       ('#FBE8F1', '#C86B95'),
-        'send_alt':   ('#F8DCEA', '#C86B95'),
-        'send_text':  '#C86B95',
+        # 말풍선 — 보낸쪽은 로즈색 단색에 흰 글자, 받은쪽은 흰 바탕에 로즈색 테두리·글자
+        'send':       ('#C86B95', None),
+        'send_alt':   ('#B05780', None),
+        'send_text':  '#FFFFFF',
         'recv':       ('#FFFFFF', '#C86B95'),
         'recv_alt':   ('#FDF5F9', '#C86B95'),
         'recv_text':  '#C86B95',
@@ -86,9 +86,11 @@ PALETTES = {
         'accent_dim': '#C56F95',
         'on_accent': '#161315',
 
-        'send':       ('#3A2430', '#E48FB4'),
-        'send_alt':   ('#452B39', '#E48FB4'),
-        'send_text':  '#F6D9E6',
+        # 다크는 테두리색 #E48FB4 을 그대로 채우면 흰 글자가 안 읽힌다(대비 2.0).
+        # 한 단계 짙은 #C56F95 로 채워 흰 글자 대비를 3.7 까지 올린다.
+        'send':       ('#C56F95', None),
+        'send_alt':   ('#AE5C81', None),
+        'send_text':  '#FFFFFF',
         'recv':       ('#1D1A1C', '#E48FB4'),
         'recv_alt':   ('#262023', '#E48FB4'),
         'recv_text':  '#F6D9E6',
