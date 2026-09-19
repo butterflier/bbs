@@ -51,8 +51,9 @@ git checkout claude/intelligent-clarke-li1uhy
 | --- | --- |
 | `manifest.json` | 확장 정의 (`chrome_url_overrides.newtab`) |
 | `newtab.html` | 새 탭 화면 · 링크 목록 |
-| `styles.css` | 라이트/다크 팔레트와 레이아웃 |
+| `styles.css` | 나다주 디자인 토큰과 레이아웃 |
 | `icons/` | 확장 아이콘 16/48/128px |
+| `fonts/` | Noto Sans KR woff2 6개 (400·500·700 × 한글/라틴) |
 | `update.command` / `update.bat` | 최신 버전 내려받기 |
 
 ## 새 탭 말고 시작 페이지로만 쓰려면
@@ -60,3 +61,9 @@ git checkout claude/intelligent-clarke-li1uhy
 확장 없이도 됩니다. 크롬 **설정 → 시작 그룹 → 특정 페이지 열기**에 아래 주소를 넣으세요.
 
 https://claude.ai/code/artifact/4f5fb1af-a385-4a9e-943a-c72cfd34de47
+
+## 디자인
+
+나다주 디자인 규칙을 따릅니다 — 그림자 없음, 선은 `1.4px #DEE2E7` 한 굵기,
+모서리는 `4px` 한 반경, 파랑(`#2F6FEB`)은 활성 상태에만. 글자는 Noto Sans KR
+400·500·700이며 확장은 `fonts/` 의 woff2를 직접 씁니다(오프라인에서도 뜹니다).
