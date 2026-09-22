@@ -46,19 +46,22 @@
 }
 
 /*
- * 나다주 디자인 규칙을 따른다 — 그림자 없음, 선은 1.4px #DEE2E7 한 굵기,
+ * 나다주 디자인 규칙 + PIYO 색. 그림자 없음, 선은 1.4px 한 굵기,
  * 모서리는 4px 한 반경, 색은 뜻이 있을 때만.
  */
 
 :root {
   color-scheme: light;
-  --line: #DEE2E7;
+  --ground: #FFFCF2;
+  --panel: #FFFFFF;
+  --line: #EAE0CA;
   --line-w: 1.4px;
-  --line-hover: #C3C9D2;
-  --ink: #1B1D21;
-  --ink-soft: #6B7280;
-  --accent: #2F6FEB;
-  --muted-bg: #F1F3F5;
+  --line-hover: #D9C8A4;
+  --ink: #43250F;
+  --ink-soft: #8B7763;
+  --accent: #B54F12;
+  --rule-top: #F3BE30;
+  --label-bg: #FFE696;
   --radius: 4px;
 }
 
@@ -68,12 +71,20 @@
 
 body {
   margin: 0;
-  background: #FFFFFF;
+  background: var(--ground);
   color: var(--ink);
   font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   font-weight: 400;
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
+}
+
+/* PIYO 상단선 — 브랜드 표식 */
+body::before {
+  content: "";
+  display: block;
+  height: 6px;
+  background: var(--rule-top);
 }
 
 img {
@@ -100,7 +111,7 @@ img {
   place-items: center;
   width: 44px;
   height: 44px;
-  background: #FFFFFF;
+  background: var(--panel);
   border: var(--line-w) solid var(--line);
   border-radius: var(--radius);
 }
@@ -172,7 +183,7 @@ section + section {
   align-items: center;
   gap: 3px 10px;
   padding: 10px 12px 9px;
-  background: #FFFFFF;
+  background: var(--panel);
   border: var(--line-w) solid var(--line);
   border-radius: var(--radius);
   text-decoration: none;
@@ -218,8 +229,8 @@ section + section {
   padding: 1px 5px;
   margin-right: 5px;
   border-radius: var(--radius);
-  background: var(--muted-bg);
-  color: var(--ink-soft);
+  background: var(--label-bg);
+  color: var(--ink);
 }
 
 footer {

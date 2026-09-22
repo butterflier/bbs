@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "TIS 교무 런처",
-  "version": "1.0.0",
-  "description": "새 탭을 수업 도구와 TIS 교사용 대시보드 링크 보드로 바꿉니다.",
+  "name": "삐요쨩 비서노트",
+  "version": "1.1.0",
+  "description": "새 탭을 삐요쨩 비서노트 — 수업 도구와 TIS 교사용 대시보드 링크 보드로 바꿉니다.",
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   },
