@@ -16,7 +16,7 @@
 import os
 import zipfile
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(ROOT, 'dist')
@@ -68,6 +68,16 @@ PALETTES = {
 
         'chips': ('#FBE8F1', '#F6D3E3', '#EFBCD5', '#E7A3C7'),
         'icon_bg': '#FFFFFF',
+
+        # 채팅방 배경 — 엑셀 화면 흉내
+        'sheet': {
+            'band':      '#C86B95',   # 맨 위 띠
+            'toolbar':   '#FDF7FA',   # 도구모음 자리
+            'header':    '#FBE8F1',   # 열 머리글 행
+            'head_text': '#C86B95',   # A B C D E
+            'line':      '#F0D8E4',   # 격자선
+            'cell':      '#FFFFFF',   # 셀
+        },
     },
     'jyugyo_pink_dark': {
         'name': 'jyugyo_pink dark',
@@ -102,6 +112,15 @@ PALETTES = {
 
         'chips': ('#3A2430', '#4A2E3C', '#5A3848', '#6B4256'),
         'icon_bg': '#1D1A1C',
+
+        'sheet': {
+            'band':      '#C56F95',
+            'toolbar':   '#221D20',
+            'header':    '#2A2429',
+            'head_text': '#E48FB4',
+            'line':      '#3A3238',
+            'cell':      '#1D1A1C',
+        },
     },
 }
 
@@ -236,6 +255,63 @@ def add_friend_icon(t, px):
     return img
 
 
+# --- 채팅방 배경: 스프레드시트 ------------------------------------------
+
+# 치수는 참고한 '엑셀_블루' 테마에서 잰 값이다 (pt, 480x960 캔버스 기준).
+# 카톡은 이 그림을 top-center-crop 으로 깐다 — 위를 맞추고 가로는 가운데를 쓴다.
+SHEET_W, SHEET_H = 480, 960
+BAND_H = 44.3         # 맨 위 띠 (상태바 뒤)
+TOOLBAR_H = 56.4      # 도구모음 자리
+HEAD_Y0, HEAD_Y1 = 100.7, 131.3   # 열 머리글 행
+COL_W, ROW_H = 96, 30
+LINE = 0.67           # 격자선 굵기
+
+
+def sheet_background(t, scale):
+    """엑셀 화면처럼 보이는 채팅방 배경 한 장."""
+    w, h = int(SHEET_W * scale), int(SHEET_H * scale)
+    sh = t['sheet']
+    img = Image.new('RGBA', (w, h), rgba(sh['cell']))
+    d = ImageDraw.Draw(img)
+    u = float(scale)
+    lw = max(1, round(LINE * u))
+
+    # 맨 위 띠와 도구모음
+    d.rectangle((0, 0, w, BAND_H * u), fill=rgba(sh['band']))
+    d.rectangle((0, BAND_H * u, w, (BAND_H + TOOLBAR_H) * u), fill=rgba(sh['toolbar']))
+
+    # 열 머리글 행
+    d.rectangle((0, HEAD_Y0 * u, w, HEAD_Y1 * u), fill=rgba(sh['header']))
+    for y in (HEAD_Y0, HEAD_Y1):
+        d.rectangle((0, y * u - lw / 2, w, y * u + lw / 2), fill=rgba(sh['line']))
+
+    # 가로선 — 머리글 행 아래로 ROW_H 마다
+    y = HEAD_Y1 + ROW_H
+    while y < SHEET_H:
+        d.rectangle((0, y * u - lw / 2, w, y * u + lw / 2), fill=rgba(sh['line']))
+        y += ROW_H
+
+    # 세로선 — 머리글 행부터 아래까지
+    x = COL_W
+    while x < SHEET_W:
+        d.rectangle((x * u - lw / 2, HEAD_Y0 * u, x * u + lw / 2, h), fill=rgba(sh['line']))
+        x += COL_W
+
+    # 열 이름 A B C D E
+    try:
+        f = ImageFont.truetype(os.path.join(ROOT, 'assets', 'fonts',
+                                            'Paperlogy-4Regular.ttf'), int(12 * u))
+    except OSError:
+        f = None
+    if f:
+        for i in range(int(SHEET_W / COL_W)):
+            cx = (i + 0.5) * COL_W * u
+            cy = (HEAD_Y0 + HEAD_Y1) / 2 * u
+            d.text((cx, cy), chr(ord('A') + i), font=f,
+                   fill=rgba(sh['head_text']), anchor='mm')
+    return img
+
+
 # --- CSS -----------------------------------------------------------------
 
 CSS = """/*
@@ -319,7 +395,7 @@ DefaultProfileStyle
 
 BackgroundStyle-ChatRoom
 {{
-    background-color: {bg_deep};
+    background-color: {bg_deep};{chatbg}
 }}
 
 InputBarStyle-Chat
@@ -480,7 +556,14 @@ def build(key, t):
             profile_image(t, i, 54 * scale).save(out('%s@%dx.png' % (nm, scale)))
         names.append("'%s.png'" % nm)
 
-    css = CSS.format(version=VERSION,
+    # 채팅방 배경 — 'sheet' 팔레트가 있으면 스프레드시트 그림을 깐다
+    chatbg = ''
+    if t.get('sheet'):
+        for scale in (2, 3):
+            sheet_background(t, scale).save(out('chatroomBgImage@%dx.png' % scale))
+        chatbg = "\n    -ios-background-image: 'chatroomBgImage.png';"
+
+    css = CSS.format(version=VERSION, chatbg=chatbg,
                      send_cells=cell_css('Send'), recv_cells=cell_css('Receive'),
                      tabicons='\n'.join(tab_lines) + '\n',
                      bullet_lines='\n'.join(bullet_lines) + '\n',

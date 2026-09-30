@@ -59,19 +59,26 @@ CHAT = [
 def screen(key, t):
     px = lambda c: build.rgba(c)
     im = Image.new('RGBA', (W, H), px(t['bg_deep']))
+    if t.get('sheet'):
+        # 카톡과 같은 top-center-crop: 위를 맞추고 가로는 가운데를 쓴다
+        bg = build.sheet_background(t, 2).resize(
+            (build.SHEET_W, build.SHEET_H), Image.LANCZOS)
+        im.paste(bg.crop(((build.SHEET_W - W) // 2, 0,
+                          (build.SHEET_W - W) // 2 + W, H)), (0, 0))
     d = ImageDraw.Draw(im)
 
-    # 상단 제목줄
-    d.rectangle((0, 0, W, 64), fill=px(t['surface']))
-    d.line((0, 64, W, 64), fill=px(t['border']), width=1)
-    d.text((20, 22), '소논문반 27기', font=font(19, True), fill=px(t['text']))
-    d.text((W - 20, 25), '24', font=font(14), fill=px(t['subtext']), anchor='ra')
+    # 상단 제목줄 — 배경 그림의 도구모음 자리에 그대로 얹힌다
+    if not t.get('sheet'):
+        d.rectangle((0, 0, W, 64), fill=px(t['surface']))
+        d.line((0, 64, W, 64), fill=px(t['border']), width=1)
+    d.text((20, 62), '소논문반 27기', font=font(19, True), fill=px(t['text']))
+    d.text((W - 20, 65), '24', font=font(14), fill=px(t['subtext']), anchor='ra')
 
     # 말풍선
     bub = {s: {v: img2x(key, 'chatroomBubble%s%s@2x.png' % (s, v)) for v in ('01', '02')}
            for s in ('Send', 'Receive')}
     f = font(15)
-    y = 84
+    y = 145 if t.get('sheet') else 84
     for side, who, text in CHAT:
         tw = d.textlength(text, font=f)
         bw, bh = int(tw) + build.INSET_H * 2, 15 + build.INSET_V * 2
